@@ -75,13 +75,17 @@ const add_user_item = async (req, res) => {
     const itemId = req.body.itemId;
     const user = await User.findById(userId).exec();
     const item = await Item.findById(itemId).exec();
+    //ukoliko ne postoji item na usera vratice undefined i tu imam problem
     const userItem = user.items.find(
       item => item._id.toString() === itemId.toString()
     );
-    if (userItem._id.toString() !== itemId.toString()) {
-      user.items.push(item);
-    } else {
+
+    if (userItem && userItem._id.toString() === itemId.toString()) {
       userItem.quantity += 1;
+      console.log('res2');
+    } else {
+      user.items.push(item);
+      console.log('res1');
     }
     const result = await user.save();
     res.status(201).json(result);
@@ -90,11 +94,22 @@ const add_user_item = async (req, res) => {
   }
 };
 
-// brisanje opreme user
+// brisanje opreme useru
 
 const remove_user_item = async (req, res) => {
   try {
-  } catch (error) {}
+    const userId = req.params.userId;
+    const itemId = req.params.itemId;
+
+    const updateUserItems = await User.findById(userId).exec();
+    const updatedUserItems = await updateUserItems.item.filter(item => {
+      return item._id.toString() !== itemId.toString();
+    });
+    updateUserItems.items = updatedUserItems;
+    const result = await updateUserItems.save();
+  } catch (error) {
+    console.log({ message: error });
+  }
 };
 
 module.exports = {
@@ -104,4 +119,5 @@ module.exports = {
   get_specific_user,
   delete_user,
   add_user_item,
+  remove_user_item,
 };
