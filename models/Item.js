@@ -14,6 +14,7 @@ const itemSchema = new Schema(
     },
     equipmentNumber: {
       type: Number,
+      unique: true,
       required: true,
       min: 9,
     },

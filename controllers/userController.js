@@ -67,7 +67,7 @@ const delete_user = async (req, res) => {
   }
 };
 
-//adduj item useru,  evidencija koji korisnik ima koju opremu i ifelse za dodavanje quantity na itemu u bazi
+//adduj item useru,  evidencija koji korisnik ima koju opremu i ifelse za dodavanje quantity na itemu u kod usera
 
 const add_user_item = async (req, res) => {
   try {
@@ -78,7 +78,6 @@ const add_user_item = async (req, res) => {
     const userItem = user.items.find(
       item => item._id.toString() === itemId.toString()
     );
-
     if (userItem && userItem._id.toString() === itemId.toString()) {
       userItem.quantity += 1;
       console.log('res2');
@@ -93,7 +92,23 @@ const add_user_item = async (req, res) => {
   }
 };
 
-// brisanje opreme useru
+// brisanje sve opreme useru
+const delete_user_item = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const itemId = req.body.itemId;
+    const updateUser = await User.findById(userId).exec();
+    const updateUserItem = await updateUser.items.filter(item => {
+      return item._id.toString() !== itemId.toString();
+    });
+    console.log(updateUserItem);
+    updateUser.items = updateUserItem;
+    const result = await updateUser.save();
+    res.json(result).status(200);
+  } catch (error) {
+    console.log({ message: error });
+  }
+};
 
 module.exports = {
   create_user,
@@ -102,4 +117,5 @@ module.exports = {
   get_specific_user,
   delete_user,
   add_user_item,
+  delete_user_item,
 };

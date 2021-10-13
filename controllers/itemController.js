@@ -31,7 +31,7 @@ const add_item = async (req, res) => {
       equipmentNumber: req.body.equipmentNumber,
     });
     const result = await newItem.save();
-    res.status(201).json(result);
+    res.status(200).json(result);
   } catch (error) {
     console.log({ message: error });
   }

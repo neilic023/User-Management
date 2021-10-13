@@ -38,4 +38,7 @@ router.delete('/item/:id', itemController.delete_item);
 //dodavanje opreme useru
 router.post('/users/:id/items', userController.add_user_item);
 
+//brisanje opreme useru
+router.delete('/users/:userId/items/:itemId', userController.delete_user_item);
+
 module.exports = router;
