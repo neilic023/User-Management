@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
 const itemController = require('../controllers/itemController');
+const authController = require('../controllers/authController');
 
 //admin routes
 
@@ -12,7 +13,15 @@ router.get('/users', userController.get_users);
 router.get('/users/:id', userController.get_specific_user);
 
 //kreiranje usera
-router.post('/users', userController.create_user);
+router.post('/signup', authController.create_user);
+//signup form
+router.get('/signup', authController.signup_get);
+//login page
+router.get('/login', authController.login_get);
+//authenticate current user
+router.post('/login', authController.login_post);
+//log a user out
+router.get('/logout');
 
 //update usera
 router.put('/users/:id', userController.update_user);

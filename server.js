@@ -3,9 +3,12 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const routes = require('./routes/routes');
-
+const cors = require('cors');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+//cors middleware
+app.use(cors());
 
 //route middlewares
 app.use('/', routes);

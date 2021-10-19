@@ -2,19 +2,6 @@ const User = require('../models/User');
 const Item = require('../models/Item');
 
 //create user
-const create_user = async (req, res) => {
-  try {
-    const newUser = new User({
-      fullName: req.body.fullName,
-      email: req.body.email,
-      password: req.body.password,
-    });
-    const result = await newUser.save();
-    res.status(201).json(result);
-  } catch (error) {
-    res.status(400).send('Error, user not created');
-  }
-};
 
 //get users
 const get_users = async (req, res) => {
@@ -111,7 +98,6 @@ const delete_user_item = async (req, res) => {
 };
 
 module.exports = {
-  create_user,
   get_users,
   update_user,
   get_specific_user,
