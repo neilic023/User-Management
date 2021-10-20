@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 //handle errors
 const handleErrors = err => {
@@ -28,13 +30,16 @@ const login_get = (req, res) => {
   res.send('login form');
 };
 
-//nalazi se u user controlleru, kreiranje usera u db
+//logic for creating user and saving it in a database as signup post request
 const create_user = async (req, res) => {
+  //hash password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
   try {
     const newUser = new User({
       fullName: req.body.fullName,
       email: req.body.email,
-      password: req.body.password,
+      password: hashedPassword,
     });
     const result = await newUser.save();
     res.status(201).json(result);
@@ -44,8 +49,20 @@ const create_user = async (req, res) => {
   }
 };
 
-const login_post = (req, res) => {
-  const { email, password } = req.body;
+const login_post = async (req, res) => {
+  try {
+    //checking if user exists
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) return res.status(400).send('Email is not found');
+    //validate pass
+    const validPass = await bcrypt.compare(req.body.password, user.password);
+    if (!validPass) return res.status(400).send('Invalid password');
+    //create and assign token
+    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+    res.header('auth-token', token).send(token);
+  } catch (error) {
+    console.log({ error: message });
+  }
 };
 
 module.exports = {

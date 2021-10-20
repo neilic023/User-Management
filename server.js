@@ -16,6 +16,7 @@ app.get('/', (req, res) => {
   res.json({ message: 'User managment app' });
 });
 
+//server start and mongoose connection
 app.listen(process.env.PORT, () => {
   mongoose.connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
