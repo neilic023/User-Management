@@ -69,9 +69,13 @@ const add_user_item = async (req, res) => {
       userItem.quantity += 1;
       console.log('res2');
     } else {
-      user.items.push(item);
+      const newItem = item;
+      newItem.quantity = 1;
+      user.items.push(newItem);
       console.log('res1');
     }
+    item.quantity -= 1;
+    await item.save();
     const result = await user.save();
     res.status(201).json(result);
   } catch (error) {
