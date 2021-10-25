@@ -59,11 +59,26 @@ const login_post = async (req, res) => {
     const validPass = await bcrypt.compare(req.body.password, user.password);
     if (!validPass) return res.status(400).send('Invalid password');
     //create and assign token
-    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+    const token = jwt.sign(
+      { _id: user._id, role: user.role },
+      process.env.TOKEN_SECRET
+    );
     res.header('auth-token', token).send(token);
   } catch (error) {
     console.log({ error: message });
   }
+};
+
+//role permissions restriction
+const restrict_to = (...roles) => {
+  return (req, res, next) => {
+    console.log(roles);
+    if (!roles.includes(req.user.role)) {
+      console.log(req.user);
+      return res.status(403).send('Forbidden');
+    }
+    next();
+  };
 };
 
 module.exports = {
@@ -71,4 +86,5 @@ module.exports = {
   login_get,
   create_user,
   login_post,
+  restrict_to,
 };
