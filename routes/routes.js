@@ -109,12 +109,20 @@ router.get('/logout');
 //endpointi za usere i slanje zahteva za opremu
 router.post('/api/req/:id', verify, userController.request_equipment);
 
-//admin get endpoint za user requests
+//admin get endpoint za user request po idu
 router.get(
   '/api/req/:id',
   verify,
   authController.restrict_to('admin'),
   userController.view_requests
+);
+
+//admin get endpoint za sve user requestove
+router.get(
+  '/api/req',
+  verify,
+  authController.restrict_to('admin'),
+  userController.view_all_requests
 );
 
 module.exports = router;

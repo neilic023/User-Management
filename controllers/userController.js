@@ -2,8 +2,6 @@ const User = require('../models/User');
 const Item = require('../models/Item');
 const Supply = require('../models/SupplyEquipment');
 
-//create user
-
 //get users
 const get_users = async (req, res) => {
   try {
@@ -118,13 +116,22 @@ const request_equipment = async (req, res) => {
   }
 };
 
-//admin view of user equipment requests
+//admin view of user equipment request
 const view_requests = async (req, res) => {
   try {
     const id = req.params.id;
     const getRequests = await Supply.findById(id).populate('user');
     const result = getRequests;
     res.status(200).json(result);
+  } catch (error) {
+    console.log({ message: error });
+  }
+};
+//admin view of all user supply requests
+const view_all_requests = async (req, res) => {
+  try {
+    const getAllRequests = await Supply.find().exec();
+    res.status(200).json(getAllRequests);
   } catch (error) {
     console.log({ message: error });
   }
@@ -139,4 +146,5 @@ module.exports = {
   delete_user_item,
   request_equipment,
   view_requests,
+  view_all_requests,
 };
