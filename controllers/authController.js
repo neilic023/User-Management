@@ -72,9 +72,7 @@ const login_post = async (req, res) => {
 //role permissions restriction
 const restrict_to = (...roles) => {
   return (req, res, next) => {
-    console.log(roles);
     if (!roles.includes(req.user.role)) {
-      console.log(req.user);
       return res.status(403).send('Forbidden');
     }
     next();

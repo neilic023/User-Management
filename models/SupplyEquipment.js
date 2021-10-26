@@ -12,8 +12,13 @@ const supplySchema = new Schema(
       type: Number,
       required: true,
     },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
   },
   { timestamps: true }
 );
-const Supply = mongoose.model(supplySchema);
+const Supply = mongoose.model('Supply', supplySchema);
 module.exports = Supply;

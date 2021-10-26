@@ -23,17 +23,6 @@ router.get(
   userController.get_specific_user
 );
 
-//kreiranje usera
-router.post('/signup', authController.create_user);
-//signup form
-router.get('/signup', authController.signup_get);
-//login page
-router.get('/login', authController.login_get);
-//authenticate current user
-router.post('/login', authController.login_post);
-//log a user out
-router.get('/logout');
-
 //update user
 router.put(
   '/users/:id',
@@ -104,6 +93,28 @@ router.delete(
   verify,
   authController.restrict_to('admin'),
   userController.delete_user_item
+);
+
+//kreiranje usera login, logout, kreiranje usera
+router.post('/signup', authController.create_user);
+//signup form
+router.get('/signup', authController.signup_get);
+//login page
+router.get('/login', authController.login_get);
+//authenticate current user
+router.post('/login', authController.login_post);
+//log a user out
+router.get('/logout');
+
+//endpointi za usere i slanje zahteva za opremu
+router.post('/api/req/:id', verify, userController.request_equipment);
+
+//admin get endpoint za user requests
+router.get(
+  '/api/req/:id',
+  verify,
+  authController.restrict_to('admin'),
+  userController.view_requests
 );
 
 module.exports = router;
