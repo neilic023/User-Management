@@ -82,6 +82,34 @@ const add_user_item = async (req, res) => {
   }
 };
 
+//get user item
+const get_user_item = async (req, res) => {
+  try {
+      const userId = req.params.userId;
+      const itemId = req.params.itemId;
+      const user = await User.findById(userId).exec();
+      let items = user.items.id(itemId);
+      res.status(200).json(items);
+         
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+//get user items
+const get_user_items = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const getUserItems = await User.findById(id).exec();
+    res.status(200).json(getUserItems)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+
 // brisanje sve opreme useru
 const delete_user_item = async (req, res) => {
   try {
@@ -143,6 +171,8 @@ module.exports = {
   get_specific_user,
   delete_user,
   add_user_item,
+  get_user_item,
+  get_user_items,
   delete_user_item,
   request_equipment,
   view_requests,

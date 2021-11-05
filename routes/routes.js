@@ -10,8 +10,8 @@ const verify = require('./verifyToken');
 //lista svih usera
 router.get(
   '/users',
-  verify,
-  authController.restrict_to('admin'),
+  // verify,
+  // authController.restrict_to('admin'),
   userController.get_users
 );
 
@@ -41,23 +41,23 @@ router.delete(
 
 //lista all databse items
 router.get(
-  '/items',
-  verify,
-  authController.restrict_to('admin'),
+  '/equipment',
+  // verify,
+  // authController.restrict_to('admin'),
   itemController.get_items
 );
 
 //get item by id
 router.get(
-  '/items/:id',
-  verify,
-  authController.restrict_to('admin'),
+  '/equipment/:id',
+  // verify,
+  // authController.restrict_to('admin'),
   itemController.get_single_item
 );
 
 //add item to mongodb
 router.post(
-  '/items',
+  '/equipment',
   verify,
   authController.restrict_to('admin'),
   itemController.add_item
@@ -65,7 +65,7 @@ router.post(
 
 //update item
 router.put(
-  '/item/:id',
+  '/equipment/:id',
   verify,
   authController.restrict_to('admin'),
   itemController.update_item
@@ -73,9 +73,9 @@ router.put(
 
 //delete item
 router.delete(
-  '/item/:id',
-  verify,
-  authController.restrict_to('admin'),
+  '/equipment/:id',
+  // verify,
+  // authController.restrict_to('admin'),
   itemController.delete_item
 );
 
@@ -87,9 +87,15 @@ router.post(
   userController.add_user_item
 );
 
+//get user items
+router.get('/users/:id/equipment', userController.get_user_items)
+
+//get user item
+router.get('/users/:userId/equipment/:itemId', userController.get_user_item)
+
 //delete user item
 router.delete(
-  '/users/:userId/items/:itemId',
+  '/users/:userId/equipment/:itemId',
   verify,
   authController.restrict_to('admin'),
   userController.delete_user_item
