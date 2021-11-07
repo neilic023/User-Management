@@ -3,13 +3,13 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {createBrowserHistory} from 'history'
 
 import {  ThemeProvider } from '@mui/material/styles';
-import {mdTheme} from './components/CustomTheme'
+import {mdTheme} from './components//UI/CustomTheme'
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp'
 import Dashboard from './components/Dashboard';
 import Equipment from './components/Equipment';
-import AppBar from './components/AppBar'
-import Sidebar from './components/Sidebar'
+import AppBar from './components/UI/AppBar'
+import Sidebar from './components/UI/Sidebar'
 
 
 

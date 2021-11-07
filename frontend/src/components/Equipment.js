@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { useParams } from 'react-router-dom'
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,6 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
 
 import Title from '../components/Title'
 import api from '../axios';
@@ -25,12 +26,14 @@ import api from '../axios';
 
 export default function Equipment() {
   const [items, setItems] = React.useState([]);
+  const { id } = useParams();
 
   const fetchData = async () => {
     try {
       const response = await api.get('/equipment');
       const result = response;
       setItems(result.data);
+
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +46,7 @@ export default function Equipment() {
 
   const deleteItemHandler = async () => {
     try {
-        //  await api.delete(`/equipment/${id}`)
+        // await api.delete(`/equipment/${id}`)
       } catch (error) {
       console.log(error)
     }
@@ -76,10 +79,14 @@ export default function Equipment() {
               <TableCell>{item.equipmentNumber}</TableCell>
               <TableCell align = 'center'>
                 <IconButton  onClick={deleteItemHandler} >
+                  <Tooltip title='Delete item'>
                   <DeleteIcon/>
+                  </Tooltip>
                 </IconButton>
                 <IconButton>
+                  <Tooltip title='Edit item'>
                   <EditIcon/>
+                  </Tooltip>
                 </IconButton>
               </TableCell>
             </TableRow>

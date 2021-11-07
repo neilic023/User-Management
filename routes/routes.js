@@ -81,9 +81,9 @@ router.delete(
 
 //add item to user
 router.post(
-  '/users/:id/items',
-  verify,
-  authController.restrict_to('admin'),
+  '/users/:id/equipment',
+  // verify,
+  // authController.restrict_to('admin'),
   userController.add_user_item
 );
 
