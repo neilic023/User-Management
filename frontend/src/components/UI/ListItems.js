@@ -12,7 +12,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 
 export const ListItems = (
   <div> 
-      <ListItem button component={NavLink} to="/users">
+      <ListItem button component={NavLink} to="/">
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>

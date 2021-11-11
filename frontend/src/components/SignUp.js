@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useHistory } from 'react-router-dom'
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,27 +11,39 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const theme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
+import api from '../axios'
+
 
 export default function SignUp() {
-  const handleSubmit = event => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+  const history = useHistory();
+
+  const [ newUser, setNewUser] = React.useState({
+    fullName: '',
+    email: '',
+    password: ''
+})
+
+const onInputChange = e => {
+  setNewUser({
+      ...newUser, [e.target.name]: e.target.value
+  });
+}
+
+
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+       await api.post('/signup', newUser)
+    } catch (error) {
+      console.log(error)
+    }
+    // history.push('/')
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -40,7 +54,7 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -49,7 +63,6 @@ export default function SignUp() {
           <Box
             component="form"
             noValidate
-            onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
@@ -59,6 +72,7 @@ export default function SignUp() {
                   name="fullName"
                   required
                   fullWidth
+                  onChange={e => onInputChange(e)}
                   id="fullName"
                   label="Name & Surname"
                   autoFocus
@@ -68,6 +82,7 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
+                  onChange={e => onInputChange(e)}
                   id="email"
                   label="Email Address"
                   name="email"
@@ -78,6 +93,7 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
+                  onChange={e => onInputChange(e)}
                   name="password"
                   label="Password"
                   type="password"
@@ -89,6 +105,7 @@ export default function SignUp() {
             <Button
               type="submit"
               fullWidth
+              onClick={handleSubmit}
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
@@ -104,6 +121,6 @@ export default function SignUp() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    
   );
 }

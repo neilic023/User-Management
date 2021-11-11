@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,27 +11,41 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const theme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
+import api from '../axios'
 
-export default function SignIn() {
-  const handleSubmit = event => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+
+
+export default function Login(){
+
+  const [ login, setLogin] = React.useState({
+    email: '',
+    password: ''
+})
+
+const onInputChange = e => {
+  setLogin({
+      ...login, [e.target.name]: e.target.value
+  });
+}
+
+
+
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+      const res = await api.post('/login', login);
+      const result = await res.data;
+      setLogin(result);
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
-    <ThemeProvider theme={theme}>
+   
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -40,11 +56,11 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Login
           </Typography>
           <Box
             component="form"
@@ -60,6 +76,7 @@ export default function SignIn() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              onChange={e => onInputChange(e)}
               autoFocus
             />
             <TextField
@@ -70,6 +87,7 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
+              onChange={e => onInputChange(e)}
               autoComplete="current-password"
             />
             <Button
@@ -92,6 +110,6 @@ export default function SignIn() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+   
   );
 }

@@ -29,10 +29,12 @@ const update_user = async (req, res) => {
     const id = req.params.id;
     const fullName = req.body.fullName;
     const email = req.body.email;
-
+    const role = req.body.role;
+    console.log(role);
     const update = await User.findById(id).exec();
     update.fullName = fullName;
     update.email = email;
+    update.role = role;
 
     const saveUpdated = await update.save();
     res.status(201).json(saveUpdated);
@@ -47,7 +49,7 @@ const delete_user = async (req, res) => {
   try {
     const id = req.params.id;
     const removeUser = await User.findByIdAndDelete(id);
-    res.status(200).send(`${removeUser.fullName} is deleted from database`);
+    res.status(200)
   } catch (error) {
     console.log({ message: error });
   }
@@ -158,7 +160,7 @@ const view_requests = async (req, res) => {
 //admin view of all user supply requests
 const view_all_requests = async (req, res) => {
   try {
-    const getAllRequests = await Supply.find().exec();
+    const getAllRequests = await Supply.find().populate('user').exec();
     res.status(200).json(getAllRequests);
   } catch (error) {
     console.log({ message: error });

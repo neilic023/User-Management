@@ -3,12 +3,18 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const routes = require('./routes/routes');
-const cors = require('cors');
+var cors = require('cors');
+const cookieParser = require('cookie-parser');
+
+
+
+//middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 
 //cors middleware
-app.use(cors());
+app.use(cors({origin: true, credentials: true}));
 
 //route middlewares
 app.use('/', routes);

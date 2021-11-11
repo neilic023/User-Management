@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { NavLink } from 'react-router-dom'
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
@@ -30,7 +31,7 @@ const NavBar = () => {
               Admin Dashboard
             </Typography>
             <IconButton color="secondary">
-              <Button type="submit" variant="outlined" sx={{ mt: 1, mb: 1 }}>
+              <Button type="submit" variant="outlined" sx={{ mt: 1, mb: 1 }} component={NavLink} to = '/logout'>
                 LOGOUT
               </Button>
             </IconButton>

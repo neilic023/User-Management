@@ -22,13 +22,16 @@ const handleErrors = err => {
   return errors;
 };
 
-const signup_get = (req, res) => {
-  res.send('signup');
-};
+const maxAge = 3 * 24 * 60 * 60;
+const createToken = (id, role) => {
+    return jwt.sign({ id, role }, process.env.TOKEN_SECRET, { 
+      expiresIn: maxAge
+    })
+} 
 
-const login_get = (req, res) => {
-  res.send('login form');
-};
+
+
+
 
 //logic for creating user and saving it in a database as signup post request
 const create_user = async (req, res) => {
@@ -42,9 +45,12 @@ const create_user = async (req, res) => {
       password: hashedPassword,
       role: req.body.role,
     });
-    const result = await newUser.save();
-    res.status(201).json(result);
+    await newUser.save();
+     const token = createToken(newUser._id, newUser.role);
+     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000});
+     res.status(201).json(newUser);
   } catch (error) {
+    console.log(error);
     const errors = handleErrors(error);
     res.status(400).json({ errors });
   }
@@ -58,16 +64,20 @@ const login_post = async (req, res) => {
     //validate pass
     const validPass = await bcrypt.compare(req.body.password, user.password);
     if (!validPass) return res.status(400).send('Invalid password');
-    //create and assign token
-    const token = jwt.sign(
-      { _id: user._id, role: user.role },
-      process.env.TOKEN_SECRET
-    );
-    res.header('auth-token', token).send(token);
+    const token = createToken(user._id, user.role);
+    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000});
+    res.status(200).redirect('/')
   } catch (error) {
-    console.log({ error: message });
+    res.status(400).json({})
+    console.log(error);
   }
 };
+
+
+const logout_get = async (req, res ) => {
+  res.cookie('jwt', '', { maxAge: 1 })
+  res.redirect('/login')
+} 
 
 //role permissions restriction
 const restrict_to = (...roles) => {
@@ -80,9 +90,11 @@ const restrict_to = (...roles) => {
 };
 
 module.exports = {
-  signup_get,
-  login_get,
   create_user,
   login_post,
+  logout_get,
   restrict_to,
 };
+
+
+  

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useParams } from 'react-router-dom'
+import { useParams, NavLink } from 'react-router-dom'
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -44,9 +44,9 @@ export default function Equipment() {
       fetchData();
   },[])
 
-  const deleteItemHandler = async () => {
+  const deleteItemHandler = async (id) => {
     try {
-        // await api.delete(`/equipment/${id}`)
+         await api.delete(`/equipment/${id}`)
       } catch (error) {
       console.log(error)
     }
@@ -67,7 +67,7 @@ export default function Equipment() {
             <TableCell>Name</TableCell>
             <TableCell>Quantity</TableCell>
             <TableCell>Serial ID</TableCell>
-            <TableCell align="center"><Button size='small' variant="outlined" startIcon={<AddIcon/>}>
+            <TableCell align="center"><Button size='small' variant="outlined" startIcon={<AddIcon/>} component={NavLink} to='/add'>
               Add equipment</Button></TableCell>
           </TableRow>
         </TableHead>
@@ -83,7 +83,7 @@ export default function Equipment() {
                   <DeleteIcon/>
                   </Tooltip>
                 </IconButton>
-                <IconButton>
+                <IconButton component={NavLink} to = {`/equipment/${item._id}`}>
                   <Tooltip title='Edit item'>
                   <EditIcon/>
                   </Tooltip>
@@ -98,9 +98,8 @@ export default function Equipment() {
 </Grid>
 </Container>
 </React.Fragment>  
-   
-  );
+
+);
 }
 
 
-      
