@@ -22,6 +22,8 @@ const handleErrors = err => {
   return errors;
 };
 
+
+
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id, role) => {
     return jwt.sign({ id, role }, process.env.TOKEN_SECRET, { 
@@ -66,7 +68,7 @@ const login_post = async (req, res) => {
     if (!validPass) return res.status(400).send('Invalid password');
     const token = createToken(user._id, user.role);
     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000});
-    res.status(200).redirect('/')
+    res.status(200).send(token);
   } catch (error) {
     res.status(400).json({})
     console.log(error);
@@ -75,8 +77,7 @@ const login_post = async (req, res) => {
 
 
 const logout_get = async (req, res ) => {
-  res.cookie('jwt', '', { maxAge: 1 })
-  res.redirect('/login')
+ res.clearCookie('jwt')
 } 
 
 //role permissions restriction

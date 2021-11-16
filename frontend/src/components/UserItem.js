@@ -4,6 +4,9 @@ import Grid from '@mui/material/Grid'
 import ListItem from '@mui/material/ListItem'
 import List from '@mui/material/List'
 import Divider from '@mui/material/Divider'
+import DeleteIcon from '@mui/icons-material/Delete';
+import Tooltip from '@mui/material/Tooltip'
+import IconButton from '@mui/material/IconButton'
 
 function UserItem(props) {
     return (
@@ -16,6 +19,12 @@ function UserItem(props) {
                          Qty:
                          <Divider sx ={{m:1}}/>
                          {props.item.quantity} 
+                         <Divider sx ={{m:1}}/>
+                         <Tooltip title='Delete user item'>
+                        <IconButton size='small'>
+                            <DeleteIcon/>
+                        </IconButton>
+                         </Tooltip>
                         </ListItem> 
                     </List>
                 </Grid>

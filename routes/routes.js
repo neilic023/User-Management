@@ -17,7 +17,7 @@ router.get(
 
 //ruta get jednog usera
 router.get(
-  '/users/:id',
+  '/user/:id',
   verify,
   authController.restrict_to('admin'),
   userController.get_specific_user
@@ -25,7 +25,7 @@ router.get(
 
 //update user
 router.put(
-  '/users/:id',
+  '/user/:id',
   authController.restrict_to('admin'),
   verify,
   userController.update_user
@@ -33,7 +33,7 @@ router.put(
 
 //delete user
 router.delete(
-  '/users/:id',
+  '/user/:id',
   verify,
   authController.restrict_to('admin'),
   userController.delete_user
@@ -81,21 +81,21 @@ router.delete(
 
 //add item to user
 router.post(
-  '/users/:id/equipment',
+  '/user/:id/equipment',
   verify,
   authController.restrict_to('admin'),
   userController.add_user_item
 );
 
 //get user items
- router.get('/users/:id/equipment', verify, userController.get_user_items)
+  router.get('/user/:id/equipment', userController.get_user_items)
 
-//get user item
- router.get('/users/:userId/equipment/:itemId', verify, userController.get_user_item)
+//get user item ova ruta vrv nece trebati
+  router.get('/user/:userId/equipment/:itemId', userController.get_user_item)
 
 //delete user item
 router.delete(
-  '/users/:userId/equipment/:itemId',
+  '/user/:userId/equipment/:itemId',
   verify,
   authController.restrict_to('admin'),
   userController.delete_user_item
@@ -106,11 +106,12 @@ router.post('/signup', authController.create_user);
 
 //authenticate current user
 router.post('/login', authController.login_post);
+
 //log a user out
 router.get('/logout', authController.logout_get);
 
 //endpointi za usere i slanje zahteva za opremu
- router.post('/api/req', verify, userController.request_equipment);
+  router.post('/api/req', userController.request_equipment);
 
 //admin get endpoint za user request po idu
 router.get(

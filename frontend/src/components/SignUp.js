@@ -40,7 +40,7 @@ const onInputChange = e => {
     } catch (error) {
       console.log(error)
     }
-    // history.push('/')
+     history.push('/')
   };
 
   return (
@@ -113,8 +113,8 @@ const onInputChange = e => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/" variant="body2">
-                  Already have an account? Sign in
+                <Link href="/login" variant="body2">
+                  Already have an account? Login
                 </Link>
               </Grid>
             </Grid>

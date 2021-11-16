@@ -18,9 +18,7 @@ app.use(cors({origin: true, credentials: true}));
 
 //route middlewares
 app.use('/', routes);
-app.get('/', (req, res) => {
-  res.json({ message: 'User managment app' });
-});
+
 
 //server start and mongoose connection
 app.listen(process.env.PORT, () => {

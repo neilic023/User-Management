@@ -63,7 +63,7 @@ const delete_item = async (req, res) => {
   try {
     const id = req.params.id;
     const deleteItem = await Item.findByIdAndDelete(id);
-    res.status(200).send(`${deleteItem.name} has been deleted from database`);
+    res.status(200)
   } catch (error) {
     console.log({ message: error });
   }

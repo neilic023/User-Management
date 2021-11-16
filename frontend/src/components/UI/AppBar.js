@@ -31,7 +31,7 @@ const NavBar = () => {
               Admin Dashboard
             </Typography>
             <IconButton color="secondary">
-              <Button type="submit" variant="outlined" sx={{ mt: 1, mb: 1 }} component={NavLink} to = '/logout'>
+              <Button  variant="outlined" sx={{ mt: 1, mb: 1 }} component={NavLink} to = '/logout'>
                 LOGOUT
               </Button>
             </IconButton>

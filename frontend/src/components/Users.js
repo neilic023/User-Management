@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useParams } from 'react-router-dom';
+
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -17,10 +17,9 @@ import api from '../axios';
 
 export default function Users() {
   const [users, setUsers] = React.useState([]);
-  const [items, setItems] = React.useState([]);
   const [ deleted, setDeleted ] = React.useState(true);
   const [loaded, setLoaded] = React.useState(false)
-  const { id } = useParams();
+ 
  
 
 
@@ -62,6 +61,7 @@ export default function Users() {
           {loaded && users.map(user => (
              <User key={user._id} user={user} deleted={deleted} setDeleted = {setDeleted}/>   
           ))}
+          
         </TableBody>
       </Table>
     </React.Fragment>

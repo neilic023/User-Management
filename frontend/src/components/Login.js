@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { useHistory } from 'react-router-dom'
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -18,6 +18,8 @@ import api from '../axios'
 
 
 export default function Login(){
+  const history = useHistory();
+  const [ error, setError ] = React.useState(null);
 
   const [ login, setLogin] = React.useState({
     email: '',
@@ -40,8 +42,9 @@ const onInputChange = e => {
       const result = await res.data;
       setLogin(result);
     } catch (error) {
-      console.log(error)
+      setError(error.message)
     }
+    // history.push('/')
   };
 
   return (
@@ -72,6 +75,7 @@ const onInputChange = e => {
               margin="normal"
               required
               fullWidth
+              
               id="email"
               label="Email Address"
               name="email"
@@ -96,7 +100,7 @@ const onInputChange = e => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Login
             </Button>
             <Grid container>
               <Grid item>

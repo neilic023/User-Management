@@ -46,6 +46,7 @@ export default function Equipment() {
 
   const deleteItemHandler = async (id) => {
     try {
+     
          await api.delete(`/equipment/${id}`)
       } catch (error) {
       console.log(error)
@@ -78,7 +79,7 @@ export default function Equipment() {
               <TableCell>{item.quantity}</TableCell>
               <TableCell>{item.equipmentNumber}</TableCell>
               <TableCell align = 'center'>
-                <IconButton  onClick={deleteItemHandler} >
+                <IconButton  onClick={deleteItemHandler}>
                   <Tooltip title='Delete item'>
                   <DeleteIcon/>
                   </Tooltip>

@@ -1,6 +1,7 @@
 import * as React from 'react'
 
-import { useHistory } from 'react-router-dom'
+
+
 
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -8,39 +9,40 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container'
 
+
 import api from '../axios'
 
-function CreateEquipment() {
+function ApiRequest() {
 
-    const history = useHistory();
-
-    const [ newItem, setNewItem] = React.useState({
+    const [ apiRequest, setApiRequest] = React.useState({
         name: '',
         quantity: '',
-        equipmentNumber: ''
-    })
-
-
+        user: ''
+    });
+    
+    
+    
     const onInputChange = e => {
-        setNewItem({
-            ...newItem, [e.target.name]: e.target.value
+        setApiRequest({
+            ...apiRequest, [e.target.name]: e.target.value
         });
     }
 
-    const submitHandler = async e => {
-        e.preventDefault();
-        try {
-            await api.post('/add', newItem)
-            history.push('/equipment')
-        } catch (error) {
-            console.log(error)
-        }
-     
-}
+    const onSubmitHandler = async e => {
+      e.preventDefault();
+      try {
+         await api.post('/api/req', apiRequest )
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+
 
     return (
         <div>
             <Container component="main" maxWidth="xs">
+            
         <Box
           sx={{
             marginTop: 25,
@@ -49,53 +51,41 @@ function CreateEquipment() {
             alignItems: 'center',
           }}
         >
+          
           <Typography component="h3" variant="h5">
-            Add equipment
+            Request equipment
           </Typography>
           <Box
+            component="form"
+            onSubmit={onSubmitHandler}
             noValidate
-            component='form'
-            onSubmit={submitHandler}
             sx={{ mt: 1 }}
           >
             <TextField
               margin="normal"
               required
               fullWidth
+              label='Equipment name'
               id="name"
-              label="Name"
               name="name"
               onChange={e => onInputChange(e)}
-              autoComplete="name"
-              autoFocus
             />
             <TextField
               margin="normal"
               required
               fullWidth
+              label='Number of equipment'
               name="quantity"
+              id="quantity"
               type='number'
               onChange={e => onInputChange(e)}
-              label="Quantity"
-              id="email"
-             
-            />
-               <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="equipmentNumber"
-              onChange={e => onInputChange(e)}
-              label="Serial ID"
-              id="equipmentNumber"
-             
             />
             <Button
               type="submit"
               variant="outlined"
               sx={{ mt: 3, mb: 2 }}
             >
-              Submit
+              Send
             </Button>
           </Box>
         </Box>
@@ -104,4 +94,4 @@ function CreateEquipment() {
     )
 }
 
-export default CreateEquipment
+export default ApiRequest

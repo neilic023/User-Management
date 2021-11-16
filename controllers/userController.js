@@ -35,7 +35,7 @@ const update_user = async (req, res) => {
     update.fullName = fullName;
     update.email = email;
     update.role = role;
-
+    console.log(req.body);
     const saveUpdated = await update.save();
     res.status(201).json(saveUpdated);
   } catch (error) {
@@ -48,7 +48,7 @@ const update_user = async (req, res) => {
 const delete_user = async (req, res) => {
   try {
     const id = req.params.id;
-    const removeUser = await User.findByIdAndDelete(id);
+    await User.findByIdAndDelete(id);
     res.status(200)
   } catch (error) {
     console.log({ message: error });
@@ -70,9 +70,11 @@ const add_user_item = async (req, res) => {
       userItem.quantity += 1;
       console.log('res2');
     } else {
-      const newItem = item;
+      user.items.push(item);
+     const newItem =  user.items.find(
+        item => item._id.toString() === itemId.toString()
+      );
       newItem.quantity = 1;
-      user.items.push(newItem);
       console.log('res1');
     }
     item.quantity -= 1;
@@ -133,14 +135,15 @@ const delete_user_item = async (req, res) => {
 //user supply request
 const request_equipment = async (req, res) => {
   try {
-    const id = req.params.id;
+    
     const equipment = new Supply({
       name: req.body.name,
       quantity: req.body.quantity,
-      user: id,
+      user: req.user.id
     });
-    const result = await equipment.save();
-    res.status(200).json(result);
+    console.log(req.user)
+     const result = await equipment.save();
+     res.status(200).json(result);
   } catch (error) {
     console.log({ message: error });
   }

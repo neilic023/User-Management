@@ -16,6 +16,8 @@ import UserRequest from './components/UserRequest'
 import EditUser from './components/EditUser'
 import CreateEquipment from './components/CreateEquipment';
 import EditEquipment from './components/EditEquipment';
+import ViewUser from './components/ViewUser';
+import ApiRequest from './components/ApiRequest';
 
 
 
@@ -31,12 +33,14 @@ function App() {
       <Route path ="/login" exact component={Login} />
       <Route path="/signup" component={SignUp}/>
       <Route path="/" exact component={Dashboard}/>
-      {history.location.pathname !== '/signup' && history.location.pathname !== '/login'  && <div><AppBar/> <div><Sidebar/></div></div>}
+      {history.location.pathname !== '/signup' && history.location.pathname !== '/login'  && <div><AppBar/><div><Sidebar/></div></div>}
       <Route path="/equipment" exact component={Equipment}/>
       <Route path="/api/req" component={UserRequest}/>
-      <Route path='/users/:id' exact component={EditUser}/>
+      <Route path='/user/:id' exact component={EditUser}/>
       <Route path='/add' exact component = {CreateEquipment}/>
       <Route path='/equipment/:id'  component ={EditEquipment}/>
+      <Route path='/user/:id/equipment' exact component ={ViewUser}/>
+      <Route path ='/api/req' exact component={ApiRequest}/>
     </div>
     </Router>
       </ThemeProvider>
