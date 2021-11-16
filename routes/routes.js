@@ -111,7 +111,7 @@ router.post('/login', authController.login_post);
 router.get('/logout', authController.logout_get);
 
 //endpointi za usere i slanje zahteva za opremu
-  router.post('/api/req', userController.request_equipment);
+  router.post('/api/req', verify, userController.request_equipment);
 
 //admin get endpoint za user request po idu
 router.get(
