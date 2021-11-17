@@ -5,7 +5,7 @@ const itemController = require('../controllers/itemController');
 const authController = require('../controllers/authController');
 const verify = require('../middleware/authMiddleware');
 
-//admin routes
+
 
 //lista svih usera
 router.get(
@@ -26,8 +26,8 @@ router.get(
 //update user
 router.put(
   '/user/:id',
-  authController.restrict_to('admin'),
   verify,
+  authController.restrict_to('admin'),
   userController.update_user
 );
 
@@ -111,11 +111,11 @@ router.post('/login', authController.login_post);
 router.get('/logout', authController.logout_get);
 
 //endpointi za usere i slanje zahteva za opremu
-  router.post('/api/req', verify, userController.request_equipment);
+  router.post('/api/users', verify, userController.request_equipment);
 
 //admin get endpoint za user request po idu
 router.get(
-  '/api/req/:id',
+  '/api/view/:id',
   verify,
   authController.restrict_to('admin'),
   userController.view_requests
@@ -123,7 +123,7 @@ router.get(
 
 //admin get endpoint za sve user requestove
 router.get(
-  '/api/req',
+  '/api/view',
   verify,
   authController.restrict_to('admin'),
   userController.view_all_requests

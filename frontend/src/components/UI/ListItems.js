@@ -24,11 +24,11 @@ export const ListItems = (
       </ListItemIcon>
       <ListItemText primary="Equipment"/>
     </ListItem>
-    <ListItem button component={NavLink} to="/api/req">
+    <ListItem button component={NavLink} to="/api/view">
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Equipment requests" />
+      <ListItemText primary="API requests" />
     </ListItem>
   </div>
 );

@@ -33,7 +33,6 @@ export default function Equipment() {
       const response = await api.get('/equipment');
       const result = response;
       setItems(result.data);
-
     } catch (error) {
       console.log(error);
     }
@@ -46,7 +45,6 @@ export default function Equipment() {
 
   const deleteItemHandler = async (id) => {
     try {
-     
          await api.delete(`/equipment/${id}`)
       } catch (error) {
       console.log(error)

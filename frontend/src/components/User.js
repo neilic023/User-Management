@@ -17,8 +17,6 @@ import api from '../axios'
 
 function User(props) {
 
-  const [ showModal, setShowModal ] = React.useState(false);
-
   const deleteUserHandler = async (id) => {
     try {
       props.setDeleted(!props.deleted)

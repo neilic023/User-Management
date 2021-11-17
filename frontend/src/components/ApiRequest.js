@@ -31,7 +31,7 @@ function ApiRequest() {
     const onSubmitHandler = async e => {
       e.preventDefault();
       try {
-         await api.post('/api/req', apiRequest )
+         await api.post('/api/users', apiRequest )
       } catch (error) {
         console.log(error)
       }

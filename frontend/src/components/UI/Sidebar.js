@@ -6,6 +6,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
+import AppBar from './AppBar'
+
 
 
 import { Drawer } from './CustomTheme'
@@ -18,6 +20,7 @@ const Sidebar = () => {
     }
     return (
         <div>
+          <AppBar/>
           <CssBaseline /> 
         <Drawer variant="permanent" open = {open}>
           <Toolbar

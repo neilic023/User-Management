@@ -28,15 +28,12 @@ export default function Users() {
       const response = await api.get('/users');
       const result = response;
       setUsers(result.data);
-      
-      // const items = await api.get(`/users/${id}/equipment`)
-      // const res = await items.data;
-      // setItems(res);
       setLoaded(true);
     } catch (error) {
       console.log(error);
     }
   };
+
 
 
 

@@ -63,7 +63,7 @@ const delete_item = async (req, res) => {
   try {
     const id = req.params.id;
     const deleteItem = await Item.findByIdAndDelete(id);
-    res.status(200)
+    res.status(200).json(deleteItem)
   } catch (error) {
     console.log({ message: error });
   }

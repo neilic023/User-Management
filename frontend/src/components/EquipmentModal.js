@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { useParams, useHistory } from 'react-router-dom'
 
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -8,6 +8,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import InputLabel from '@mui/material/InputLabel'
+import Button from '@mui/material/Button';
 
 import api from '../axios'
 
@@ -17,7 +18,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 600,
-  height: 400,
+  height: 150,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -27,6 +28,8 @@ const style = {
  function EquipmentModal() {
   const [open, setOpen] = React.useState(false);
   const [items, setItems] = React.useState([]);
+
+  
 
   const fetchData = async () => {
     try {
@@ -48,6 +51,11 @@ const style = {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+  }
+
   return (
     <div>
     <Tooltip title='Add new equipment'>
@@ -59,15 +67,20 @@ const style = {
       >
         <Box sx={style}>
             <InputLabel>Select Equipment</InputLabel>
-            
+            <Select sx={{minWidth: 300 }}>
                 {
                     items.map(item => (
-                       <Select sx={{minWidth: 300, alignItems: 'center' }}>
-                          
-                       </Select>
+                          <MenuItem value={item}>{item.name}</MenuItem>
                     ))
                 }
-            
+             </Select>
+             <Button
+              type="submit"
+              variant="outlined"
+              sx={{ mt: -10, mb: -10, ml: 10, pr: 5, pl:5 }}
+            >
+              Add
+            </Button>
         </Box>
       </Modal>
     </div>

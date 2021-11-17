@@ -28,7 +28,7 @@ const NavBar = () => {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Admin Dashboard
+              User managment
             </Typography>
             <IconButton color="secondary">
               <Button  variant="outlined" sx={{ mt: 1, mb: 1 }} component={NavLink} to = '/logout'>

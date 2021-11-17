@@ -28,7 +28,7 @@ const [ loaded, setLoaded] = React.useState(false);
 
 const fetchData = async () => {
     try {
-      const response = await api.get('/api/req');
+      const response = await api.get('/api/view');
       const result = response;
       setRequests(result.data);
       setLoaded(true)
