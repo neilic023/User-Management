@@ -17,7 +17,7 @@ import api from '../axios'
 
 function User(props) {
 
-  const deleteUserHandler = async (id) => {
+  const deleteUserHandler = async () => {
     try {
       props.setDeleted(!props.deleted)
       api.delete(`/user/${props.user._id}`)
@@ -25,6 +25,8 @@ function User(props) {
       console.log(error);
     }
 }
+
+
 
     return (
              <TableRow key={props.user._id}>
@@ -38,7 +40,7 @@ function User(props) {
               <TableCell>{props.user.role}</TableCell>
               <TableCell align = 'center'>
                 <IconButton >
-                  <EquipmentModal/>
+                  <EquipmentModal user={props.user._id}/>
                 </IconButton>
                 <IconButton  component={NavLink} to={`/user/${props.user._id}`}>
                   <Tooltip title='Edit user'>

@@ -26,6 +26,7 @@ import api from '../axios';
 
 export default function Equipment() {
   const [items, setItems] = React.useState([]);
+  const [ item , setItem] = React.useState([]);
   const { id } = useParams();
 
   const fetchData = async () => {
@@ -33,6 +34,10 @@ export default function Equipment() {
       const response = await api.get('/equipment');
       const result = response;
       setItems(result.data);
+      console.log(id)
+      const item = await api.get(`/equipment/${id}`)
+      const res = item.data
+      setItem(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -46,6 +51,7 @@ export default function Equipment() {
   const deleteItemHandler = async (id) => {
     try {
          await api.delete(`/equipment/${id}`)
+         fetchData();
       } catch (error) {
       console.log(error)
     }
@@ -58,7 +64,6 @@ export default function Equipment() {
     <Grid container spacing={3}>
       <Grid item xs={12}>
       <Paper elevation={5} sx={{ p: 7, display: 'flex', flexDirection: 'column' }}>
-   
       <Title>Equipment</Title>
       <Table size="large">
         <TableHead>
@@ -77,7 +82,7 @@ export default function Equipment() {
               <TableCell>{item.quantity}</TableCell>
               <TableCell>{item.equipmentNumber}</TableCell>
               <TableCell align = 'center'>
-                <IconButton  onClick={deleteItemHandler}>
+                <IconButton  onClick={ () => deleteItemHandler(item._id)}>
                   <Tooltip title='Delete item'>
                   <DeleteIcon/>
                   </Tooltip>

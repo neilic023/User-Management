@@ -39,11 +39,11 @@ function EditUser() {
         });
     }
 
+
     const onSubmitHandler = async e => {
       e.preventDefault();
       try {
          await api.put(`/user/${id}`, newUser )
-        console.log(newUser)
       } catch (error) {
         console.log(error)
       }

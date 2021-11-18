@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useParams, useHistory } from 'react-router-dom'
+
 
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -25,25 +25,32 @@ const style = {
   p: 4,
 };
 
- function EquipmentModal() {
+ function EquipmentModal(props) {
   const [open, setOpen] = React.useState(false);
   const [items, setItems] = React.useState([]);
+  const [userItem, setUserItem] = React.useState('')
 
-  
 
-  const fetchData = async () => {
-    try {
-      const response = await api.get('/equipment');
-      const result = response;
-      console.log(result);
-      setItems(result.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+
+
+  const onInputChange = e => {
+    setUserItem({
+        ...userItem, [e.target.name]: e.target.value
+    });
+}
 
 
   React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get('/equipment');
+        const result = response;
+        setItems(result.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
     fetchData();
 },[])
 
@@ -53,8 +60,14 @@ const style = {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    try {
+      await api.post(`/user/${props.user}/equipment`, userItem)
+    } catch (error) {
+      console.log(error);
+    }
   }
+
+
 
   return (
     <div>
@@ -67,10 +80,10 @@ const style = {
       >
         <Box sx={style}>
             <InputLabel>Select Equipment</InputLabel>
-            <Select sx={{minWidth: 300 }}>
+            <Select sx={{minWidth: 300 }} name='item' onChange={e => onInputChange(e)}>
                 {
                     items.map(item => (
-                          <MenuItem value={item}>{item.name}</MenuItem>
+                          <MenuItem value={item._id}>{item.name}</MenuItem>
                     ))
                 }
              </Select>
@@ -78,6 +91,7 @@ const style = {
               type="submit"
               variant="outlined"
               sx={{ mt: -10, mb: -10, ml: 10, pr: 5, pl:5 }}
+              onClick={submitHandler}
             >
               Add
             </Button>

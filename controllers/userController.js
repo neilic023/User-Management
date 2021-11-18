@@ -60,7 +60,7 @@ const delete_user = async (req, res) => {
 const add_user_item = async (req, res) => {
   try {
     const userId = req.params.id;
-    const itemId = req.body.itemId;
+    const itemId = req.body.item;
     const user = await User.findById(userId).exec();
     const item = await Item.findById(itemId).exec();
     const userItem = user.items.find(

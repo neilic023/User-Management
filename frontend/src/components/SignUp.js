@@ -40,7 +40,7 @@ const onInputChange = e => {
     } catch (error) {
       console.log(error)
     }
-     history.push('/')
+     history.push('/api/users')
   };
 
   return (

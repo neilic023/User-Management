@@ -8,8 +8,18 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 
+import api from '../axios'
+
 function UserItem(props) {
 
+
+    const deleteUserItemHandler = async () => {
+        try {
+            
+        } catch (error) {
+          
+        }
+    }
   
     return (
 
