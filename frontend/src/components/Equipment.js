@@ -34,7 +34,6 @@ export default function Equipment() {
       const response = await api.get('/equipment');
       const result = response;
       setItems(result.data);
-      console.log(id)
       const item = await api.get(`/equipment/${id}`)
       const res = item.data
       setItem(res.data);
@@ -82,7 +81,7 @@ export default function Equipment() {
               <TableCell>{item.quantity}</TableCell>
               <TableCell>{item.equipmentNumber}</TableCell>
               <TableCell align = 'center'>
-                <IconButton  onClick={ () => deleteItemHandler(item._id)}>
+                <IconButton  onClick={() => deleteItemHandler(item._id)}>
                   <Tooltip title='Delete item'>
                   <DeleteIcon/>
                   </Tooltip>

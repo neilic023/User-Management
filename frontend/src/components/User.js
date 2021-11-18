@@ -17,9 +17,11 @@ import api from '../axios'
 
 function User(props) {
 
+
+
   const deleteUserHandler = async () => {
     try {
-      props.setDeleted(!props.deleted)
+      props.setDeleted(!props.deleted);
       api.delete(`/user/${props.user._id}`)
     } catch (error) {
       console.log(error);
@@ -27,6 +29,13 @@ function User(props) {
 }
 
 
+const deleteUserItemHandler = async (itemId) => {
+  try {
+     await api.delete(`/user/${props.user._id}/equipment/${itemId}`)
+   } catch (error) {
+    console.log(error)
+  }
+}
 
     return (
              <TableRow key={props.user._id}>
@@ -34,7 +43,7 @@ function User(props) {
               <TableCell>{props.user.email}</TableCell>
               <TableCell>
                 {props.user.items.map(item => (
-                    <UserItem item={item} />
+                    <UserItem item={item} user={props.user} onDeleteItem={deleteUserItemHandler}/>
                 ))}
               </TableCell>
               <TableCell>{props.user.role}</TableCell>
@@ -48,7 +57,7 @@ function User(props) {
                   </Tooltip>
                 </IconButton>
                 <IconButton  onClick = {deleteUserHandler} >
-                  <Tooltip title='Delete'>
+                  <Tooltip title='Delete user'>
                     <DeleteIcon/>
                     </Tooltip>
                 </IconButton>

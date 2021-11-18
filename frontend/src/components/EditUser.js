@@ -31,7 +31,6 @@ function EditUser() {
 
    
 
-    const { fullName, email, role } = updateUser;
     
     const onInputChange = e => {
         setNewUser({
@@ -94,7 +93,7 @@ function EditUser() {
               id="fullName"
               
               name="fullName"
-              defaultValue={fullName}
+              
               onChange={e => onInputChange(e)}
              
             />
@@ -105,7 +104,7 @@ function EditUser() {
               name="email"
               id="email"
               onChange={e => onInputChange(e)}
-              defaultValue={email}
+              
             />
             <InputLabel>Role</InputLabel>
             <Select id='role' name='role'   sx={{minWidth: 120 }} onChange={e => onInputChange(e)}>

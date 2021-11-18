@@ -1,5 +1,6 @@
 import * as React from 'react'
-import {BrowserRouter as Router, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
 import {createBrowserHistory} from 'history'
 
 import {  ThemeProvider } from '@mui/material/styles';
@@ -15,7 +16,6 @@ import UserRequest from './components/UserRequest'
 import EditUser from './components/EditUser'
 import CreateEquipment from './components/CreateEquipment';
 import EditEquipment from './components/EditEquipment';
-import ViewUser from './components/ViewUser';
 import ApiRequest from './components/ApiRequest';
 
 
@@ -24,6 +24,7 @@ import ApiRequest from './components/ApiRequest';
 function App() {
   
   const history = createBrowserHistory();
+ 
   
   return (
       <ThemeProvider theme = {mdTheme}>
@@ -38,7 +39,6 @@ function App() {
       <Route path='/user/:id' exact component={EditUser}/>
       <Route path='/add' exact component = {CreateEquipment}/>
       <Route path='/equipment/:id'  component ={EditEquipment}/>
-      <Route path='/user/:id/equipment' exact component ={ViewUser}/>
       <Route path ='/api/users' exact component={ApiRequest}/>
     </div>
     </Router>

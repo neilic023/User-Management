@@ -118,12 +118,11 @@ const get_user_items = async (req, res) => {
 const delete_user_item = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const itemId = req.body.itemId;
+    const itemId = req.params.itemId;
     const updateUser = await User.findById(userId).exec();
     const updateUserItem = await updateUser.items.filter(item => {
       return item._id.toString() !== itemId.toString();
     });
-    console.log(updateUserItem);
     updateUser.items = updateUserItem;
     const result = await updateUser.save();
     res.json(result).status(200);

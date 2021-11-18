@@ -33,7 +33,6 @@ const style = {
 
 
 
-
   const onInputChange = e => {
     setUserItem({
         ...userItem, [e.target.name]: e.target.value
@@ -41,18 +40,20 @@ const style = {
 }
 
 
+const fetchData = async () => {
+  try {
+    const response = await api.get('/equipment');
+    const result = response;
+    setItems(result.data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
   React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get('/equipment');
-        const result = response;
-        setItems(result.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
     fetchData();
-},[])
+}, [])
 
 
   const handleOpen = () => setOpen(true);

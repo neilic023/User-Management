@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+
 import Grid from '@mui/material/Grid'
 import ListItem from '@mui/material/ListItem'
 import List from '@mui/material/List'
@@ -8,18 +9,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 
-import api from '../axios'
+
 
 function UserItem(props) {
 
+    const deleteItem = () => {
+        props.onDeleteItem(props.item._id);
+      };
 
-    const deleteUserItemHandler = async () => {
-        try {
-            
-        } catch (error) {
-          
-        }
-    }
   
     return (
 
@@ -34,8 +31,8 @@ function UserItem(props) {
                          {props.item.quantity} 
                          <Divider sx ={{m:1}}/>
                          <Tooltip title='Delete user item'>
-                        <IconButton size='small'>
-                            <DeleteIcon/>
+                        <IconButton onClick={deleteItem} size='small'>
+                            <DeleteIcon />
                         </IconButton>
                          </Tooltip>
                         </ListItem> 

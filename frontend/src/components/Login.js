@@ -17,11 +17,8 @@ import api from '../axios'
 
 
 
-export default function Login(){
-  const history = useHistory();
-  const [ error, setError ] = React.useState(null);
-
-  const [ login, setLogin] = React.useState({
+  function Login(){
+    const [ login, setLogin] = React.useState({
     email: '',
     password: ''
 })
@@ -42,7 +39,7 @@ const onInputChange = e => {
       const result = await res.data;
       setLogin(result);
     } catch (error) {
-      setError(error.message)
+      console.log(error);
     }
     // history.push('/')
   };
@@ -117,3 +114,5 @@ const onInputChange = e => {
    
   );
 }
+
+export default Login

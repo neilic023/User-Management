@@ -15,12 +15,12 @@ import api from '../axios';
 
 
 
-export default function Users() {
+function Users() {
   const [users, setUsers] = React.useState([]);
   const [ deleted, setDeleted ] = React.useState(true);
   const [loaded, setLoaded] = React.useState(false)
- 
- 
+
+
 
 
   const fetchData = async () => {
@@ -56,7 +56,7 @@ export default function Users() {
         </TableHead>
         <TableBody>
           {loaded && users.map(user => (
-             <User key={user._id} user={user} deleted={deleted} setDeleted = {setDeleted}/>   
+             <User key={user._id} user={user} setDeleted={setDeleted} deleted={deleted} />   
           ))}
           
         </TableBody>
@@ -64,3 +64,6 @@ export default function Users() {
     </React.Fragment>
   );
 }
+
+
+export default Users
