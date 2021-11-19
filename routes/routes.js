@@ -108,7 +108,7 @@ router.post('/signup', authController.create_user);
 router.post('/login', authController.login_post);
 
 //log a user out
-router.get('/logout', authController.logout_get);
+router.get('/logout', verify, authController.logout_get);
 
 //endpointi za usere i slanje zahteva za opremu
   router.post('/api/users', verify, userController.request_equipment);

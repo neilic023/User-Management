@@ -6,6 +6,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {AppBar} from './CustomTheme'
 
+import api from '../../axios'
+
+
 
 
 const NavBar = () => {
@@ -13,6 +16,17 @@ const NavBar = () => {
     const toggleDrawer = () => {
         setOpen(!open)
     }
+    
+   const logoutHandler = async () => {
+     try {
+        await api.get('/logout')
+     } catch(error) {
+       console.log(error)
+     }
+   }
+
+
+
     return (
         <div>
                <AppBar position="absolute" open={open}>
@@ -31,7 +45,7 @@ const NavBar = () => {
               User managment
             </Typography>
             <IconButton color="secondary">
-              <Button  variant="outlined" sx={{ mt: 1, mb: 1 }} component={NavLink} to = '/logout'>
+              <Button  variant="outlined" sx={{ mt: 1, mb: 1 }}  onClick={logoutHandler}>
                 LOGOUT
               </Button>
             </IconButton>

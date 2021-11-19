@@ -17,8 +17,6 @@ import api from '../axios'
 
 function User(props) {
 
-
-
   const deleteUserHandler = async () => {
     try {
       props.setDeleted(!props.deleted);

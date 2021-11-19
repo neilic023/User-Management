@@ -49,7 +49,7 @@ const create_user = async (req, res) => {
     });
     await newUser.save();
      const token = createToken(newUser._id, newUser.role);
-     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000});
+     res.cookie('jwt', token, { httpOnly: false, maxAge: maxAge * 1000});
      res.status(201).json(newUser);
   } catch (error) {
     console.log(error);
@@ -67,7 +67,7 @@ const login_post = async (req, res) => {
     const validPass = await bcrypt.compare(req.body.password, user.password);
     if (!validPass) return res.status(400).send('Invalid password');
     const token = createToken(user._id, user.role);
-    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000});
+    res.cookie('jwt', token, { httpOnly: false, maxAge: maxAge * 1000});
     res.status(200).send(token);
   } catch (error) {
     res.status(400).json({})

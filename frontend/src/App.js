@@ -1,11 +1,10 @@
 import * as React from 'react'
-import {BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import ProtectedRoute from './components/ProtectedRoute';
+import {BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import {createBrowserHistory} from 'history'
 
+import Cookies from 'js-cookie';
+
 import {  ThemeProvider } from '@mui/material/styles';
-
-
 import {mdTheme} from './components//UI/CustomTheme'
 import Login from './components/Login';
 import SignUp from './components/SignUp'
@@ -19,19 +18,19 @@ import EditEquipment from './components/EditEquipment';
 import ApiRequest from './components/ApiRequest';
 
 
-
-
 function App() {
   
-  const history = createBrowserHistory();
- 
-  
+ const history = createBrowserHistory();
+ const [ isAuth, setIsAuth] = React.useState(Cookies.get('jwt'));
+
   return (
       <ThemeProvider theme = {mdTheme}>
     <Router>
     <div className="App">
       <Route path ="/login" exact component={Login} />
       <Route path="/signup" component={SignUp}/>
+      { isAuth && 
+        <React.Fragment>
       <Route path="/" exact component={Dashboard}/>
       {history.location.pathname !== '/signup' && history.location.pathname !== '/login'  && <div><Sidebar/></div>}
       <Route path="/equipment" exact component={Equipment}/>
@@ -40,6 +39,9 @@ function App() {
       <Route path='/add' exact component = {CreateEquipment}/>
       <Route path='/equipment/:id'  component ={EditEquipment}/>
       <Route path ='/api/users' exact component={ApiRequest}/>
+        </React.Fragment>
+      }
+      {!isAuth && <Redirect to = {'/login'}/>}
     </div>
     </Router>
       </ThemeProvider>
