@@ -41,7 +41,7 @@ function App() {
       <Route path ='/api/users' exact component={ApiRequest}/>
         </React.Fragment>
       }
-      {!isAuth && <Redirect to = {'/login'}/>}
+      {!isAuth && <Redirect to = {'/login' || '/signup'}/>}
     </div>
     </Router>
       </ThemeProvider>

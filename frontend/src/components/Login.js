@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useHistory } from 'react-router-dom'
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -11,6 +10,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Alert from '@mui/material/Alert';
 
 import api from '../axios'
 
@@ -18,10 +18,13 @@ import api from '../axios'
 
 
   function Login(){
+
+    const [error, setError] = React.useState('');
     const [ login, setLogin] = React.useState({
     email: '',
     password: ''
 })
+
 
 const onInputChange = e => {
   setLogin({
@@ -35,6 +38,10 @@ const onInputChange = e => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
+      if (login.email === '' || login.password === '') {
+        setError('Fields are required');
+        return;
+      }
       const res = await api.post('/login', login);
       const result = await res.data;
       setLogin(result);
@@ -42,8 +49,8 @@ const onInputChange = e => {
     } catch (error) {
       console.log(error);
     }
-    // history.push('/')
   };
+
 
   return (
    
@@ -102,14 +109,17 @@ const onInputChange = e => {
             </Button>
             <Grid container>
               <Grid item>
-                
                 <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
-               
               </Grid>
             </Grid>
           </Box>
+          {error && (
+            <Alert sx={{mt:3}} severity='error' onClick={() => setError(null)}>
+              {error}
+            </Alert>
+              )}
         </Box>
       </Container>
    

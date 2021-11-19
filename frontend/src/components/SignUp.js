@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Alert from '@mui/material/Alert';
 
 import api from '../axios'
 
@@ -18,7 +19,7 @@ import api from '../axios'
 export default function SignUp() {
 
   const history = useHistory();
-
+  const [error, setError] = React.useState('');
   const [ newUser, setNewUser] = React.useState({
     fullName: '',
     email: '',
@@ -36,6 +37,10 @@ const onInputChange = e => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
+      if (newUser.email === '' || newUser.password === '' || newUser.fullName === '' ) {
+        setError('Fields are required');
+        return;
+      }
        await api.post('/signup', newUser)
     } catch (error) {
       console.log(error)
@@ -119,6 +124,11 @@ const onInputChange = e => {
               </Grid>
             </Grid>
           </Box>
+              {error && (
+                <Alert sx={{mt:3}} severity='error' onClick={() => setError(null)}>
+              {error || error}
+                </Alert>
+              )}
         </Box>
       </Container>
     
