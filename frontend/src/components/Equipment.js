@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useParams, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -26,17 +26,12 @@ import api from '../axios';
 
 export default function Equipment() {
   const [items, setItems] = React.useState([]);
-  const [ item , setItem] = React.useState([]);
-  const { id } = useParams();
 
   const fetchData = async () => {
     try {
       const response = await api.get('/equipment');
       const result = response;
       setItems(result.data);
-      const item = await api.get(`/equipment/${id}`)
-      const res = item.data
-      setItem(res.data);
     } catch (error) {
       console.log(error);
     }

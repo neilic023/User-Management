@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -11,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Alert from '@mui/material/Alert';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import api from '../axios'
 
@@ -18,7 +20,8 @@ import api from '../axios'
 
 
   function Login(){
-
+    const history = useHistory();
+    const [loggedIn, setIsLoggedIn] = React.useState();
     const [error, setError] = React.useState('');
     const [ login, setLogin] = React.useState({
     email: '',
@@ -33,10 +36,9 @@ const onInputChange = e => {
 }
 
 
-
-
   const handleSubmit = async e => {
     e.preventDefault();
+    setIsLoggedIn('Logging in...');
     try {
       if (login.email === '' || login.password === '') {
         setError('Fields are required');
@@ -50,6 +52,8 @@ const onInputChange = e => {
       console.log(error);
     }
   };
+
+
 
 
   return (
@@ -120,6 +124,7 @@ const onInputChange = e => {
               {error}
             </Alert>
               )}
+              {loggedIn === 'Logging in...' ? <CircularProgress sx={{mt:3}}/> : ''}
         </Box>
       </Container>
    

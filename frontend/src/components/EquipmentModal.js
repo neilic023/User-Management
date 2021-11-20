@@ -85,7 +85,7 @@ const fetchData = async () => {
             <Select sx={{minWidth: 300 }} name='item' onChange={e => onInputChange(e)}>
                 {
                     items.map(item => (
-                          <MenuItem value={item._id}>{item.name}</MenuItem>
+                          <MenuItem key={item._id} value={item._id}>{item.name}</MenuItem>
                     ))
                 }
              </Select>

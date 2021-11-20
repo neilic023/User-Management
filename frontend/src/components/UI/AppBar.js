@@ -1,10 +1,13 @@
 import * as React from 'react'
-import { NavLink } from 'react-router-dom'
+import Cookies from 'js-cookie';
+
+
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {AppBar} from './CustomTheme'
+
 
 import api from '../../axios'
 
@@ -12,6 +15,7 @@ import api from '../../axios'
 
 
 const NavBar = () => {
+ 
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open)
@@ -45,7 +49,7 @@ const NavBar = () => {
               User managment
             </Typography>
             <IconButton color="secondary">
-              <Button  variant="outlined" sx={{ mt: 1, mb: 1 }}  onClick={logoutHandler}>
+              <Button  variant="outlined" sx={{ mt: 1, mb: 1 }}  onClick={() => Cookies.set('jwt', '', {expires: 0})}>
                 LOGOUT
               </Button>
             </IconButton>

@@ -36,17 +36,17 @@ const deleteUserItemHandler = async (itemId) => {
 }
 
     return (
-             <TableRow key={props.user._id}>
+             <TableRow >
               <TableCell>{props.user.fullName}</TableCell>
               <TableCell>{props.user.email}</TableCell>
               <TableCell>
                 {props.user.items.map(item => (
-                    <UserItem item={item} user={props.user} onDeleteItem={deleteUserItemHandler}/>
+                    <UserItem  item={item} user={props.user} onDeleteItem={deleteUserItemHandler}/>
                 ))}
               </TableCell>
               <TableCell>{props.user.role}</TableCell>
               <TableCell align = 'center'>
-                <IconButton >
+                <IconButton>
                   <EquipmentModal user={props.user._id}/>
                 </IconButton>
                 <IconButton  component={NavLink} to={`/user/${props.user._id}`}>
