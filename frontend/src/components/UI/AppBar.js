@@ -15,18 +15,20 @@ import api from '../../axios'
 
 
 const NavBar = () => {
- 
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open)
     }
+
+
     
    const logoutHandler = async () => {
      try {
-        await api.get('/logout')
+      Cookies.remove('jwt');
      } catch(error) {
        console.log(error)
      }
+     window.location.reload()
    }
 
 
@@ -49,7 +51,7 @@ const NavBar = () => {
               User managment
             </Typography>
             <IconButton color="secondary">
-              <Button  variant="outlined" sx={{ mt: 1, mb: 1 }}  onClick={() => Cookies.set('jwt', '', {expires: 0})}>
+              <Button  variant="outlined" sx={{ mt: 1, mb: 1 }}  onClick={logoutHandler}>
                 LOGOUT
               </Button>
             </IconButton>

@@ -47,10 +47,12 @@ const onInputChange = e => {
       const res = await api.post('/login', login);
       const result = await res.data;
       setLogin(result);
+      history.push('/');
       console.log(result);
     } catch (error) {
       console.log(error);
     }
+    window.location.reload()
   };
 
 
