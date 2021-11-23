@@ -13,10 +13,10 @@ installing dependencies
 
 Starting backend server
 
--$npm start
+- $npm start
 
 Starting React app
 
--$cd frontend
+- $cd frontend
 
--$npm start
+- $npm start
