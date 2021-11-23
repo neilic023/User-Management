@@ -8,12 +8,12 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container'
-
+import Alert from '@mui/material/Alert'
 
 import api from '../axios'
 
 function ApiRequest() {
-
+    const [ error, setError ] = React.useState('');
     const [ apiRequest, setApiRequest] = React.useState({
         name: '',
         quantity: '',
@@ -31,6 +31,10 @@ function ApiRequest() {
     const onSubmitHandler = async e => {
       e.preventDefault();
       try {
+        if (apiRequest.name === '' || apiRequest.quantity === '') {
+          setError('* Fields are required');
+          return;
+        }
          await api.post('/api/users', apiRequest )
       } catch (error) {
         console.log(error)
@@ -88,6 +92,11 @@ function ApiRequest() {
               Send
             </Button>
           </Box>
+          {error && (
+            <Alert sx={{mt:3}} severity='error' onClick={() => setError(null)}>
+              {error}
+            </Alert>
+              )}
         </Box>
       </Container>
         </div>

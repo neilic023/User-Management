@@ -38,14 +38,15 @@ const onInputChange = e => {
     e.preventDefault();
     try {
       if (newUser.email === '' || newUser.password === '' || newUser.fullName === '' ) {
-        setError('Fields are required');
+        setError('* Fields are required');
         return;
       }
        await api.post('/signup', newUser)
+       history.push('/api/users')
     } catch (error) {
       console.log(error)
     }
-     history.push('/api/users')
+    window.location.reload();
   };
 
   return (

@@ -41,7 +41,7 @@ const onInputChange = e => {
     setIsLoggedIn('Logging in...');
     try {
       if (login.email === '' || login.password === '') {
-        setError('Fields are required');
+        setError('* Fields are required');
         return;
       }
       const res = await api.post('/login', login);
