@@ -18,4 +18,5 @@ installing dependencies
 -Starting React app
 
 -$cd frontend
+
 -$npm start
