@@ -29,15 +29,12 @@ function EditUser() {
 
     const { id } = useParams();
 
-   
-
     
     const onInputChange = e => {
         setNewUser({
             ...newUser, [e.target.name]: e.target.value
         });
     }
-
 
     const onSubmitHandler = async e => {
       e.preventDefault();
@@ -91,9 +88,7 @@ function EditUser() {
               margin="normal"
               fullWidth
               id="fullName"
-              
               name="fullName"
-              
               onChange={e => onInputChange(e)}
              
             />

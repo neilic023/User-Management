@@ -36,7 +36,7 @@ const checkData = () => {
     <Router>
     <div className="App">
       <Route path ="/login" exact component={Login} />
-      <Route path="/signup" component={SignUp}/>
+      <Route path="/signup" exact component={SignUp}/>
       { isAuth && 
         <React.Fragment>
       <Route exact path="/" render={() => { return  checkData() ? (<Dashboard/>) : (<Redirect to ='/api/users' />) }} />
@@ -46,10 +46,10 @@ const checkData = () => {
       <Route path='/user/:id'  render = {() => {return checkData() ? (<EditUser/>) : (<Redirect to ='/api/users'/>)}}/>
       <Route path='/add'  render = {() => {return checkData() ? (<CreateEquipment/>) : (<Redirect to ='/api/users'/>)} }/>
       <Route path='/equipment/:id' render= {() => {return checkData() ? (<EditEquipment/>) : (<Redirect to ='/api/users'/>)}} />
-      <Route path ='/api/users' exact component={ApiRequest}/>
+      <Route exact path ='/api/users'  component={ApiRequest}/>
         </React.Fragment>
       }
-      {!isAuth && <Redirect to = {'/login'}/>}
+      {!isAuth && history.location.pathname !== '/signup' && <Redirect to = {'/login'}/>}
     </div>
     </Router>
       </ThemeProvider>
