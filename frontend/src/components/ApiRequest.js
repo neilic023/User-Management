@@ -1,5 +1,5 @@
 import * as React from 'react'
-
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -12,14 +12,17 @@ import Alert from '@mui/material/Alert'
 
 import api from '../axios'
 
+
 function ApiRequest() {
     const [ error, setError ] = React.useState('');
+    const [ success, setSuccess ] = React.useState('');
     const [ apiRequest, setApiRequest] = React.useState({
         name: '',
         quantity: '',
         user: ''
     });
     
+    const history=useHistory();
     
     
     const onInputChange = e => {
@@ -35,7 +38,8 @@ function ApiRequest() {
           setError('* Fields are required');
           return;
         }
-         await api.post('/api/users', apiRequest )
+         await api.post('/api/users', apiRequest)
+         setSuccess('Request sent');
       } catch (error) {
         console.log(error)
       }
@@ -96,6 +100,11 @@ function ApiRequest() {
             <Alert sx={{mt:3}} severity='error' onClick={() => setError(null)}>
               {error}
             </Alert>
+              )}
+              { success && (
+                  <Alert sx={{mt:3}} severity='success' onClick={() => setSuccess(null)} >
+                    {success}
+                  </Alert>
               )}
         </Box>
       </Container>

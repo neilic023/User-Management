@@ -49,7 +49,7 @@ const checkData = () => {
       <Route path ='/api/users' exact component={ApiRequest}/>
         </React.Fragment>
       }
-      {!isAuth && <Redirect to = {'/login' || '/signup'}/>}
+      {!isAuth && <Redirect to = {'/login'}/>}
     </div>
     </Router>
       </ThemeProvider>
